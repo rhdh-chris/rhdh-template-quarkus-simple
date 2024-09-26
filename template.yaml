@@ -184,9 +184,9 @@ spec:
       name: Create ArgoCD Resources
       action: argocd:create-resources
       input:
-        appName: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-dev 
+        appName: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-bootstrap
         argoInstance: main
-        namespace: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-dev
+        namespace: {{ rhdh_gitops_namespace }}
         repoUrl: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-gitops.git
         path: 'argocd/'
 

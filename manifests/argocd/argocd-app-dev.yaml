@@ -35,7 +35,7 @@ spec:
       - ApplyOutOfSyncOnly=true
     managedNamespaceMetadata:
       labels:
-        argocd.argoproj.io/managed-by: foo // namespace of managing Argo CD instance
+        argocd.argoproj.io/managed-by: ${{ values.gitops_namespace }}
     retry:
       backoff:
         duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
