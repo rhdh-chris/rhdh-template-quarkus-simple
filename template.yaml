@@ -132,7 +132,7 @@ spec:
           host: {{ '${{ parameters.repo.host }}' }}
           destination: {{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}
           port: 8080
-      targetPath: {{ './${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}
+        targetPath: {{ './${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}
 
     - id: publish
       name: Publish
