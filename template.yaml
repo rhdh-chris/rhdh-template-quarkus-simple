@@ -180,6 +180,14 @@ spec:
         sourcePath: {{ './${{ user.entity.metadata.name }}-${{parameters.component_id}}-gitops' }}
         repoVisibility: public
 
+    - id: create-argocd-resources
+      name: Create ArgoCD Resources
+      action: argocd:create-resources
+      input:
+        argoInstance: main
+        repoUrl: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-gitops.git
+        path: 'argocd/'
+
   output:
     links:
       - title: Source Code Repository
