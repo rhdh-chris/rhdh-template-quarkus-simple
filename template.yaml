@@ -157,7 +157,7 @@ spec:
         copyWithoutTemplating: []
         values:
           component_id: {{ '${{ parameters.component_id }}' }}
-          source_repository: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}.git
+          source_repository: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}-gitops.git
           owner: {{ '${{ user.entity.metadata.name }}' }}
           namespace: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-dev
           image_registry: {{ '${{ parameters.image_registry }}' }}
@@ -184,7 +184,9 @@ spec:
       name: Create ArgoCD Resources
       action: argocd:create-resources
       input:
+        appName: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-dev 
         argoInstance: main
+        namespace: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-dev
         repoUrl: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-gitops.git
         path: 'argocd/'
 

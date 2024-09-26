@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: ${{ values.source_repository }}
     targetRevision: HEAD
-    path: ./helm/app
+    path: ./helm/quarkus-template
     helm:
       values: |
         nameOverride: ${{ values.owner }}-${{ values.component_id }}
@@ -19,7 +19,7 @@ spec:
           tag: latest
   destination:
     server: https://kubernetes.default.svc
-    namespace: '${{ values.namespace }}
+    namespace: ${{ values.namespace }}
   ignoreDifferences:
     - group: '*'
       jqPathExpressions:
@@ -33,6 +33,9 @@ spec:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
       - ApplyOutOfSyncOnly=true
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: foo // namespace of managing Argo CD instance
     retry:
       backoff:
         duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
