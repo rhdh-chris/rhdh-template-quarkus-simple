@@ -1,0 +1,70 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: {{ include "quarkus-build.name" . }}-build
+  labels:
+    {{- include "quarkus-build.labels" . | nindent 4 }}
+spec:
+  params:
+    - name: source-repo
+      description: source repo that contains the application code
+      type: string
+      default: {{ .Values.git.repo }}
+    - name: source-branch
+      description: source branch to build from
+      default: {{ .Values.git.branch }}
+      type: string
+    - name: dockerfile
+      type: string
+      default: {{ .Values.image.dockerfile }}
+    - name: output-image
+      type: string
+      default: {{ include "image.dev-url" . }}
+  tasks:
+    - name: git-clone
+      params:
+        - name: url
+          value: $(params.source-repo)
+        - name: revision
+          value: $(params.source-branch)
+      taskRef:
+        kind: ClusterTask
+        name: git-clone    
+      workspaces:
+        - name: output
+          workspace: source-folder
+    - name: build-source
+      runAfter:
+        - git-clone
+      params:
+        - name: GOALS
+          value:
+            - package
+      taskRef:
+        kind: ClusterTask
+        name: maven
+      workspaces:
+        - name: source
+          workspace: source-folder
+        - name: maven-settings
+          workspace: maven-settings
+    - name: build-and-push-image
+      runAfter:
+        - build-source
+      params:
+        - name: DOCKERFILE
+          value: $(params.dockerfile)
+        - name: IMAGE
+          value: $(params.output-image)
+      taskRef:
+        kind: ClusterTask
+        name: buildah        
+      workspaces:
+        - name: source
+          workspace: source-folder
+        - name: dockerconfig
+          workspace: docker-config
+  workspaces:
+    - name: source-folder
+    - name: maven-settings
+    - name: docker-config
