@@ -13,11 +13,12 @@ spec:
   source:
     repoURL: ${{ values.source_repository_gitops }}
     targetRevision: HEAD
-    path: ./helm/build
+    path: ./helm/quarkus-build
     helm:
       values: |
         nameOverride: ${{ values.owner }}-${{ values.component_id }}
         git:
+          host: ${{ values.repository_host }}
           repo: ${{ values.source_repository }}
         image:
           registry: ${{values.image_registry}}
@@ -25,6 +26,8 @@ spec:
           host: ${{ values.image_host }}
           name: ${{ values.image_name }}
           tag: ${{ values.image_tag }}
+        cluster:
+          subdomain: ${{ values.cluster_subdomain }}
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.namespace }}

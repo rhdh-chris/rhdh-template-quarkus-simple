@@ -1,6 +1,7 @@
 git:
   branch: master
   repo: ""
+  host: ""
 
 image:
   dockerfile: ./src/main/docker/Dockerfile.jvm
@@ -9,3 +10,6 @@ image:
   host: ""
   name: ""
   tag: ""
+
+cluster:
+  subdomain:

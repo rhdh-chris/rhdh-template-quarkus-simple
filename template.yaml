@@ -169,6 +169,8 @@ spec:
           gitops_namespace: {{ rhdh_gitops_namespace }}
           gitops_project: {{ rhdh_gitops_project }}
           port: 8080
+          cluster_subdomain: {{ cluster_subdomain }}
+          repository_host: {{ '${{ parameters.repo.host }}' }}
         targetPath: {{ './${{ user.entity.metadata.name }}-${{parameters.component_id}}-gitops' }}
 
     - id: publish-gitops
