@@ -19,6 +19,7 @@ spec:
           tag: latest
         imagePullSecrets:
           - name: ${{ values.owner }}-${{ values.component_id }}-registry-creds-app
+        user: ${{ values.owner }}
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.namespace }}
