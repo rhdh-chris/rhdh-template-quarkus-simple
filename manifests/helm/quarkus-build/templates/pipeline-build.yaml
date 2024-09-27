@@ -64,6 +64,12 @@ spec:
           workspace: source-folder
         - name: dockerconfig
           workspace: docker-config
+    - name: resync
+      runAfter:
+        - build-and-push-image
+      taskRef:
+        kind: Task
+        name: resync
   workspaces:
     - name: source-folder
     - name: maven-settings
