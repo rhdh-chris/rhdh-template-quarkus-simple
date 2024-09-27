@@ -157,7 +157,8 @@ spec:
         copyWithoutTemplating: []
         values:
           component_id: {{ '${{ parameters.component_id }}' }}
-          source_repository: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}-gitops.git
+          source_repository_gitops: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}-gitops.git
+          source_repository: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}.git
           owner: {{ '${{ user.entity.metadata.name }}' }}
           namespace: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-dev
           image_registry: {{ '${{ parameters.image_registry }}' }}

@@ -5,11 +5,11 @@ metadata:
   name: ${{ values.owner }}-${{ values.component_id }}-dev
   namespace: ${{ values.gitops_namespace }}
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io/foreground
 spec:
   project: ${{ values.gitops_project }}
   source:
-    repoURL: ${{ values.source_repository }}
+    repoURL: ${{ values.source_repository_gitops }}
     targetRevision: HEAD
     path: ./helm/quarkus-template
     helm:
