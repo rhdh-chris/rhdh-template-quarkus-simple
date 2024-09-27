@@ -17,6 +17,8 @@ spec:
         nameOverride: ${{ values.owner }}-${{ values.component_id }}
         image:
           tag: latest
+        imagePullSecrets:
+          - name: ${{ values.owner }}-${{ values.component_id }}-registry-creds-app
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.namespace }}
