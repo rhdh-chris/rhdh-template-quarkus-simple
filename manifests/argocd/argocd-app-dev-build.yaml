@@ -6,8 +6,8 @@ metadata:
   namespace: ${{ values.gitops_namespace }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
-  # annotations:
-  #   argocd.argoproj.io/sync-wave: "-1"
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: ${{ values.gitops_project }}
   source:
