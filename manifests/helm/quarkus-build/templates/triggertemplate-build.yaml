@@ -44,13 +44,7 @@ spec:
                   requests:
                     storage: 1Gi
           - name: maven-settings
-            volumeClaimTemplate:
-              spec:
-                accessModes:
-                  - ReadWriteOnce
-                resources:
-                  requests:
-                    storage: 5Gi
+            emptydir: {}
 {{- if eq .Values.image.registry "Quay" }}
           - name: docker-config
             secret:
