@@ -11,6 +11,7 @@ image:
   organization: 
   name: 
   tag: 
+  password: 
 
 imagePullSecrets: []
 nameOverride: ""

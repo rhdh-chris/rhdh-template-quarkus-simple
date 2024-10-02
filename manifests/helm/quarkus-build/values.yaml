@@ -10,6 +10,7 @@ image:
   host: ""
   name: ""
   tag: ""
+  password: ""
 
 cluster:
   subdomain:

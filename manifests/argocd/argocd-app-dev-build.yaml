@@ -24,6 +24,7 @@ spec:
         image:
           registry: ${{values.image_registry}}
           organization: ${{values.image_organization}}
+          password: ${{values.image_password}}
           host: ${{ values.image_host }}
           name: ${{ values.image_name }}
           namespace: ${{ values.namespace }}

@@ -73,3 +73,8 @@ Image Url image will be pushed to defaults to internal registry
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{- define "quay.auth" -}}
+{{- $auth:= printf "%s:%s" .Values.image.organization .Values.image.password -}}
+{{- $auth | b64enc -}}
+{{- end }}

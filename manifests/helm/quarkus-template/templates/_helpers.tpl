@@ -77,3 +77,8 @@ Create the name of the service account to use
 {{- printf "%s/%s/%s:latest" .Values.image.host .Values.image.namespace .Values.image.name -}}
 {{- end }}
 {{- end }}
+
+{{- define "quay.auth" -}}
+{{- $auth:= printf "%s:%s" .Values.image.organization .Values.image.password -}}
+{{- $auth | b64enc -}}
+{{- end }}

@@ -29,6 +29,7 @@ spec:
           name: ${{ values.image_name }}
           namespace: ${{ values.namespace }}
           tag: ${{ values.image_tag }}
+          password: ${{values.image_password}}
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.namespace }}
