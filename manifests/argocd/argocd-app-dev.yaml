@@ -14,9 +14,9 @@ spec:
     path: ./helm/quarkus-template
     helm:
       values: |
-        nameOverride: ${{ values.owner }}-${{ values.component_id }}
+        nameOverride: ${{ values.component_id }}
         imagePullSecrets:
-          - name: ${{ values.owner }}-${{ values.component_id }}-registry-creds-app
+          - name: ${{ values.component_id }}-registry-creds-app
         user: ${{ values.owner }}
         service:
           port: ${{values.port}}

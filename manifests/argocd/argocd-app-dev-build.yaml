@@ -16,7 +16,8 @@ spec:
     path: ./helm/quarkus-build
     helm:
       values: |
-        nameOverride: ${{ values.owner }}-${{ values.component_id }}
+        nameOverride: ${{ values.component_id }}
+        owner: ${{ values.owner }}
         git:
           host: ${{ values.repository_host }}
           repo: ${{ values.source_repository }}

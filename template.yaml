@@ -106,13 +106,6 @@ spec:
               default: {{ gitlab_host }}
               enum:
                 - {{ gitlab_host }}
-            owner:
-              title: Repo Owner
-              type: string
-              description: Your SCM host organization/group
-              default: {{ gitlab_destination_group }}
-              enum:
-                - {{ gitlab_destination_group }}
 
   steps:
     - id: template
@@ -130,7 +123,7 @@ spec:
           owner: {{ '${{ user.entity.metadata.name }}' }}
           cluster: {{ cluster_subdomain }}
           host: {{ '${{ parameters.repo.host }}' }}
-          destination: {{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}
+          destination: {{ '${{ user.entity.metadata.name }}' }}/{{ '${{ parameters.component_id }}' }}
           port: 8080
         targetPath: {{ './${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}
 
@@ -138,7 +131,7 @@ spec:
       name: Publish
       action: publish:gitlab
       input:
-        repoUrl: "{{ '${{ parameters.repo.host }}' }}?owner={{ '${{ parameters.repo.owner }}' }}&repo={{ '${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}"
+        repoUrl: "{{ '${{ parameters.repo.host }}' }}?owner={{ '${{ user.entity.metadata.name }}' }}&repo={{ '${{parameters.component_id}}' }}"
         repoVisibility: public
         defaultBranch: main
         sourcePath: {{ './${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}
@@ -158,8 +151,8 @@ spec:
         copyWithoutTemplating: []
         values:
           component_id: {{ '${{ parameters.component_id }}' }}
-          source_repository_gitops: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}-gitops.git
-          source_repository: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}.git
+          source_repository_gitops: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ user.entity.metadata.name }}' }}/{{ '${{parameters.component_id}}' }}-gitops.git
+          source_repository: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ user.entity.metadata.name }}' }}/{{ '${{parameters.component_id}}' }}.git
           owner: {{ '${{ user.entity.metadata.name }}' }}
           namespace: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-dev
           image_registry: {{ '${{ parameters.image_registry }}' }}
@@ -178,11 +171,11 @@ spec:
       name: Publishing to Resource Repository
       action: publish:gitlab
       input:
-        repoUrl: "{{ '${{ parameters.repo.host }}' }}?owner={{ '${{ parameters.repo.owner }}' }}&repo={{ '${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}-gitops"
+        repoUrl: "{{ '${{ parameters.repo.host }}' }}?owner={{ '${{ user.entity.metadata.name }}' }}&repo={{ '${{parameters.component_id}}' }}-gitops"
         repoVisibility: public
         defaultBranch: main
-        title: gitops resources for {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}
-        description: gitops resources for {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}
+        title: gitops resources for {{ '${{ parameters.component_id }}' }}
+        description: gitops resources for {{ '${{ parameters.component_id }}' }}
         sourcePath: {{ './${{ user.entity.metadata.name }}-${{parameters.component_id}}-gitops' }}
 
     - id: create-argocd-resources
@@ -192,7 +185,7 @@ spec:
         appName: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-bootstrap
         argoInstance: main
         namespace: {{ rhdh_gitops_namespace }}
-        repoUrl: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ parameters.repo.owner }}' }}/{{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-gitops.git
+        repoUrl: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ user.entity.metadata.name }}' }}/{{ '${{ parameters.component_id }}' }}-gitops.git
         path: 'argocd/'
 
   output:

@@ -7,7 +7,7 @@ spec:
     - args:
         - >-
           oc delete pod -n {{ .Release.Namespace }} -l
-          app.kubernetes.io/instance={{ include "quarkus-build.name" . }}-dev
+          app.kubernetes.io/instance={{ .Values.owner }}-{{ include "quarkus-build.name" . }}-dev
       command:
         - /bin/bash
         - '-c'
