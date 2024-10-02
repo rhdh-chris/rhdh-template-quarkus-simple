@@ -15,11 +15,17 @@ spec:
     helm:
       values: |
         nameOverride: ${{ values.owner }}-${{ values.component_id }}
-        image:
-          tag: latest
         imagePullSecrets:
           - name: ${{ values.owner }}-${{ values.component_id }}-registry-creds-app
         user: ${{ values.owner }}
+        service:
+          port: ${{values.port}}
+        image:
+          registry: ${{values.image_registry}}
+          organization: ${{values.image_organization}}
+          host: ${{ values.image_host }}
+          name: ${{ values.image_name }}
+          tag: ${{ values.image_tag }}
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.namespace }}
