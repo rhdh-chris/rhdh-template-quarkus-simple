@@ -85,6 +85,7 @@ spec:
                   title: Password
                   type: string
                   description: Your Quay password
+                  ui:widget: password
                 image_tag:
                   title: Image Tag
                   default: latest
@@ -159,7 +160,7 @@ spec:
           image_host: {{ '${{ parameters.image_host }}' }}
           image_organization: {{ '${{ user.entity.metadata.name }}' }}
           image_password: {{ '${{ parameters.image_password }}' }}
-          image_name: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}
+          image_name: {{ '${{ parameters.component_id }}' }}
           image_tag: {{ '${{ parameters.image_tag }}' }}
           gitops_namespace: {{ rhdh_gitops_namespace }}
           gitops_project: {{ rhdh_gitops_project }}
