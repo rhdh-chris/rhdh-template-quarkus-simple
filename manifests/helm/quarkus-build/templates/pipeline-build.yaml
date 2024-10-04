@@ -56,14 +56,16 @@ spec:
           value: $(params.dockerfile)
         - name: IMAGE
           value: $(params.output-image)
+{{- if not (eq .Values.image.registry "Quay") }}
+        - name: TLSVERIFY
+          value: 'false'
+{{- end }}
       taskRef:
-        kind: ClusterTask
+        kind: Task
         name: buildah        
       workspaces:
         - name: source
           workspace: source-folder
-        - name: dockerconfig
-          workspace: docker-config
     - name: resync
       runAfter:
         - build-and-push-image
@@ -73,4 +75,3 @@ spec:
   workspaces:
     - name: source-folder
     - name: maven-settings
-    - name: docker-config

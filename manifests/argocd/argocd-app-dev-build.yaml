@@ -25,19 +25,24 @@ spec:
           organization: ${{values.image_organization}}
           host: ${{ values.image_host }}
           name: ${{ values.image_name }}
+          namespace: ${{ values.namespace }}
           tag: ${{ values.image_tag }}
         cluster:
           subdomain: ${{ values.cluster_subdomain }}
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.namespace }}
+  ignoreDifferences:
+    - group: '*'
+      jqPathExpressions:
+        - '.imagePullSecrets[] | select(.name|test(".-dockercfg-."))'
+      kind: ServiceAccount
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - RespectIgnoreDifferences=true
       - ApplyOutOfSyncOnly=true
     retry:
       backoff:

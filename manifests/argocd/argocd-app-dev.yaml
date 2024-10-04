@@ -25,6 +25,7 @@ spec:
           organization: ${{values.image_organization}}
           host: ${{ values.image_host }}
           name: ${{ values.image_name }}
+          namespace: ${{ values.namespace }}
           tag: ${{ values.image_tag }}
   destination:
     server: https://kubernetes.default.svc
