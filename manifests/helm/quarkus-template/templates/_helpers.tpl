@@ -34,14 +34,21 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "quarkus-template.labels" -}}
-backstage.io/kubernetes-id: {{ include "quarkus-template.name" .}}
 helm.sh/chart: {{ include "quarkus-template.chart" . }}
 app.openshift.io/runtime: quarkus
 {{ include "quarkus-template.selectorLabels" . }}
+{{ include "backstage.labels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Backstage labels
+*/}}
+{{- define "backstage.labels" -}}
+backstage.io/kubernetes-id: {{ include "quarkus-template.name" .}}
 {{- end }}
 
 {{/*
