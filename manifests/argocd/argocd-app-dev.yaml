@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: ${{ values.owner }}-${{ values.component_id }}-dev
   namespace: ${{ values.gitops_namespace }}
+  labels:
+    rht-gitops.com/${{ values.gitops_namespace }}: ${{ values.owner }}-${{ values.component_id }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
 spec:

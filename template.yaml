@@ -125,6 +125,7 @@ spec:
           host: {{ '${{ parameters.repo.host }}' }}
           destination: {{ '${{ user.entity.metadata.name }}' }}/{{ '${{ parameters.component_id }}' }}
           port: 8080
+          gitops_namespace: {{ rhdh_gitops_namespace }}
         targetPath: {{ './${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}
 
     - id: publish
