@@ -3,6 +3,8 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: {{ include "quarkus-build.name" . }}-el
+  labels:
+    {{- include "quarkus-build.labels" . | nindent 4 }}
 spec:
   serviceAccountName: pipeline
   triggers:
