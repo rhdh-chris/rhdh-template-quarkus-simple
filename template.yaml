@@ -85,7 +85,7 @@ spec:
                   title: Password
                   type: string
                   description: Your Quay password
-                  ui:widget: password
+                  ui:field: Secret
                 image_tag:
                   title: Image Tag
                   default: latest
