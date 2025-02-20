@@ -103,9 +103,9 @@ spec:
               title: Repo Host
               type: string
               description: Your SCM host
-              default: {{ gitlab_host }}
+              default: github.com
               enum:
-                - {{ gitlab_host }}
+                - github.com
 
   steps:
     - id: template
@@ -130,7 +130,7 @@ spec:
 
     - id: publish
       name: Publish
-      action: publish:gitlab
+      action: publish:github
       input:
         repoUrl: "{{ '${{ parameters.repo.host }}' }}?owner={{ '${{ user.entity.metadata.name }}' }}&repo={{ '${{parameters.component_id}}' }}"
         repoVisibility: public
@@ -171,7 +171,7 @@ spec:
 
     - id: publish-gitops
       name: Publishing to Resource Repository
-      action: publish:gitlab
+      action: publish:github
       input:
         repoUrl: "{{ '${{ parameters.repo.host }}' }}?owner={{ '${{ user.entity.metadata.name }}' }}&repo={{ '${{parameters.component_id}}' }}-gitops"
         repoVisibility: public
