@@ -116,14 +116,14 @@ spec:
         values:
           component_id: {{ '${{ parameters.component_id }}' }}
           description: {{ '${{ parameters.description }}' }}
-          namespace: {{ '${{ parameters.component_id }}' }}-dev
+          namespace: "{{ '${{ parameters.component_id }}' }}-dev"
           group_id: {{ '${{ parameters.group_id }}' }}
           artifact_id: {{ '${{ parameters.artifact_id }}' }}
           java_package_name: {{ '${{ parameters.java_package_name }}' }}
           owner: {{ '${{ user.entity.metadata.name }}' }}
           cluster: {{ cluster_subdomain }}
           host: {{ '${{ parameters.repo.host }}' }}
-          destination: {{ '${{ user.entity.metadata.name }}' }}/{{ '${{ parameters.component_id }}' }}
+          destination: "{{ '${{ user.entity.metadata.name }}' }}/{{ '${{ parameters.component_id }}' }}"
           port: 8080
           gitops_namespace: {{ rhdh_gitops_namespace }}
         targetPath: {{ './${{ user.entity.metadata.name }}-${{parameters.component_id}}' }}
@@ -155,7 +155,7 @@ spec:
           source_repository_gitops: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ user.entity.metadata.name }}' }}/{{ '${{parameters.component_id}}' }}-gitops.git
           source_repository: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ user.entity.metadata.name }}' }}/{{ '${{parameters.component_id}}' }}.git
           owner: {{ '${{ user.entity.metadata.name }}' }}
-          namespace: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-dev
+          namespace: "{{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-dev"
           image_registry: {{ '${{ parameters.image_registry }}' }}
           image_host: {{ '${{ parameters.image_host }}' }}
           image_organization: {{ '${{ user.entity.metadata.name }}' }}
@@ -184,7 +184,7 @@ spec:
       name: Create ArgoCD Resources
       action: argocd:create-resources
       input:
-        appName: {{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-bootstrap
+        appName: "{{ '${{ user.entity.metadata.name }}-${{ parameters.component_id }}' }}-bootstrap"
         argoInstance: main
         namespace: {{ rhdh_gitops_namespace }}
         repoUrl: https://{{ '${{ parameters.repo.host }}' }}/{{ '${{ user.entity.metadata.name }}' }}/{{ '${{ parameters.component_id }}' }}-gitops.git
